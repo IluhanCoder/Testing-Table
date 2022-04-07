@@ -1,25 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import IProject from './interfaces/IProject';
+import AppContext from './context/Context';
 
 function App() {
+  const [projects, setProjects] = useState<Array<IProject>>([]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AppContext.Provider value={{projects, setProjects}}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<></>}>
+            <Route index element={<></>}/>
+            <Route path="projects" element={<></>}/>
+            <Route path="project/:projectId" element={<></>}/>
+            <Route path="form/:formId" element={<></>}/>
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </AppContext.Provider>
   );
 }
 

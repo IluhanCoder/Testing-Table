@@ -4,5 +4,5 @@ export default interface IProject {
     _id: number;
     name: string;
     creationDate: Date;
-    forms: IForm;
+    forms: IForm[];
 }

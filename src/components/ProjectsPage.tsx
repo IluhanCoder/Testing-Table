@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AppContext from "../context/Context";
 import IProject from "../interfaces/IProject";
 import { Link } from "react-router-dom";
@@ -6,20 +6,21 @@ import DateFormater from "./DateFormater";
 import ProjectCard from "./ProjectCard";
 
 const ProjectsPage = () => {
-  const [projects, setProjects] = useContext(AppContext);
+  const { setProjectsState, getProjectsState } = useContext(AppContext);
+  const projects: Array<IProject> = getProjectsState();
   const [inputValue, setInputValue] = useState<string>("");
 
   function addProject(projectName: string) {
-    let newIndex = (projects?.length ? projects.length : 0);
+    let newId = projects?.length ? projects.length : 0;
     let newProject: IProject = {
-      _id: newIndex,
+      _id: newId,
       name: projectName,
       creationDate: new Date(),
       forms: [],
     };
-    let tempArray = projects.concat([newProject]);
-    setProjects(tempArray!);
-    console.log(projects);
+    let tempArray: Array<IProject> = [];
+    tempArray = projects?.concat([newProject]);
+    setProjectsState(tempArray!);
   }
 
   return (
@@ -29,13 +30,11 @@ const ProjectsPage = () => {
           Ultra Mega Extra Testing Enviroment By Peychev
         </p>
       </div>
-      <div className="flex justify-center"><p className="text-2xl">Your projects:</p></div>
+      <div className="flex justify-center">
+        <p className="text-2xl">Your projects:</p>
+      </div>
       <div className="flex flex-wrap gap-3 px-20">
-        {projects!.map((project: IProject) => {
-          return (
-            <ProjectCard project={project}/>
-          );
-        })}
+        <ProjectsMapper projects={projects} />
       </div>
       <div className="flex gap-5 justify-center">
         <input
@@ -56,6 +55,23 @@ const ProjectsPage = () => {
       </div>
     </div>
   );
+};
+
+type LocalProps = {
+  projects: Array<IProject>;
+};
+
+const ProjectsMapper = (props: LocalProps) => {
+  const { projects } = props;
+  if (projects && projects.length > 0) {
+    return (
+      <>
+        {projects.map((project: IProject) => {
+          return <ProjectCard project={project} />;
+        })}
+      </>
+    );
+  } else return <div className="flex justify-center w-full text-gray-600">Currently you have no projects</div>;
 };
 
 export default ProjectsPage;

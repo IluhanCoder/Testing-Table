@@ -71,7 +71,12 @@ const ProjectsMapper = (props: LocalProps) => {
         })}
       </>
     );
-  } else return <div className="flex justify-center w-full text-gray-600">Currently you have no projects</div>;
+  } else
+    return (
+      <div className="flex justify-center w-full text-gray-600">
+        Currently you have no projects
+      </div>
+    );
 };
 
 export default ProjectsPage;

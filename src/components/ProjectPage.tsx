@@ -23,7 +23,7 @@ const ProjectPage = () => {
       creationDate: new Date(),
       tests: [],
     };
-    let tempProjects : Array<IProject> = [].concat(projects);
+    let tempProjects: Array<IProject> = [].concat(projects);
     tempProjects[+projectId!].forms = projects[+projectId!].forms.concat([
       newForm,
     ]);
@@ -40,7 +40,7 @@ const ProjectPage = () => {
       </div>
       <div className="flex flex-wrap gap-3 px-20">
         {project!.forms.map((form: IForm) => {
-          return <FormCard form={form} projectId={project._id}/>;
+          return <FormCard form={form} projectId={project._id} />;
         })}
       </div>
       <div className="flex gap-5 justify-center">

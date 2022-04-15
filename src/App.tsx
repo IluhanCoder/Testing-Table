@@ -18,7 +18,7 @@ function App() {
 
   function getProjectsState(): Array<IProject> {
     const projectStore = window.localStorage.getItem("projects");
-    if(projectStore) return JSON.parse(projectStore ? projectStore : "");
+    if (projectStore) return JSON.parse(projectStore ? projectStore : "");
     else return [];
   }
 
@@ -31,7 +31,10 @@ function App() {
             path="project/:projectId"
             element={<ProjectPage></ProjectPage>}
           />
-          <Route path="project/:projectId/:formId" element={<FormPage></FormPage>} />
+          <Route
+            path="project/:projectId/:formId"
+            element={<FormPage></FormPage>}
+          />
         </Routes>
       </BrowserRouter>
     </AppContext.Provider>
